@@ -1,6 +1,3 @@
-Here’s the README code with the specified **Aptos** font family incorporated:
-
-```md
 # E-Notes Project – Real-Time Application
 
 ## Project Overview
@@ -113,7 +110,6 @@ CREATE TABLE category (
     updated_by INT,
     updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
 );
-```
 
 ### 5. **Notes Table**
 ```sql
@@ -140,7 +136,6 @@ CREATE TABLE file_details (
     file_size DOUBLE NOT NULL,
     file_type VARCHAR(100) NOT NULL
 );
-```
 
 ### 7. **Todo Table**
 ```sql
@@ -153,7 +148,6 @@ CREATE TABLE todo (
     created_by INT,
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-```
 
 ---
 
