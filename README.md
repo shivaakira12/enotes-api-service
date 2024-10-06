@@ -1,3 +1,5 @@
+Here's the complete **README.md** code for the **E-Notes Project**, including the **Aptos** font family for styling in the frontend:
+
 # E-Notes Project – Real-Time Application
 
 ## Project Overview
@@ -78,16 +80,17 @@ CREATE TABLE users (
     mobile_no VARCHAR(15)
 );
 ```
-2. Role Table
-sql
-Copy code
+
+### 2. **Role Table**
+```sql
 CREATE TABLE role (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL
 );
-3. User Role Table
-sql
-Copy code
+```
+
+### 3. **User Role Table**
+```sql
 CREATE TABLE user_role (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -95,9 +98,10 @@ CREATE TABLE user_role (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE
 );
-4. Category Table
-sql
-Copy code
+```
+
+### 4. **Category Table**
+```sql
 CREATE TABLE category (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -108,9 +112,10 @@ CREATE TABLE category (
     updated_by INT,
     updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
 );
-5. Notes Table
-sql
-Copy code
+```
+
+### 5. **Notes Table**
+```sql
 CREATE TABLE notes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(1000) NOT NULL,
@@ -121,9 +126,10 @@ CREATE TABLE notes (
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-6. File Details Table
-sql
-Copy code
+```
+
+### 6. **File Details Table**
+```sql
 CREATE TABLE file_details (
     id INT AUTO_INCREMENT PRIMARY KEY,
     original_file_name VARCHAR(255) NOT NULL,
@@ -133,9 +139,10 @@ CREATE TABLE file_details (
     file_size DOUBLE NOT NULL,
     file_type VARCHAR(100) NOT NULL
 );
-7. Todo Table
-sql
-Copy code
+```
+
+### 7. **Todo Table**
+```sql
 CREATE TABLE todo (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
@@ -145,27 +152,47 @@ CREATE TABLE todo (
     created_by INT,
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-Deployment and Source Control
+```
+
+---
+
+## Deployment and Source Control
+
 The project is hosted on GitHub with multiple branches for development, testing, and production environments. You can clone or fork the project using the following repository URL:
 
-GitHub Repository: E-Notes API Service
+- **GitHub Repository**: [E-Notes API Service](https://github.com/shivaakira12/enotes-api-service.git)
+
 Branches include:
+- `dev` (Development)
+- `uat` (User Acceptance Testing)
+- `prod` (Production)
 
-dev (Development)
-uat (User Acceptance Testing)
-prod (Production)
-UI Design
-UI/UX design was created using Figma for wireframes and mockups.
+---
 
-Deployment
-The application is deployed on AWS, utilizing various AWS services for scalability and reliability.
+## UI Design
+UI/UX design was created using **Figma** for wireframes and mockups.
 
-Frontend Customization
-Use the Aptos font family in your frontend for a clean and modern look. Example:
+---
 
-css
-Copy code
+## Deployment
+
+The application is deployed on **AWS**, utilizing various AWS services for scalability and reliability.
+
+---
+
+## Frontend Customization
+
+Use the **Aptos** font family in your frontend for a clean and modern look. Example:
+
+```css
 body {
     font-family: 'Aptos', sans-serif;
 }
+```
+
+---
+
 Thank you for using the E-Notes Project!
+```
+
+This README file is ready for your project, ensuring a clean structure that includes the **Aptos** font family, SQL scripts, project features, and other essential details. Save this as `README.md` in your repository for display on GitHub or other platforms.
