@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-The **E-Notes Project** is a comprehensive real-time note-taking and to-do management application. It offers robust features for user authentication, notes management, and task organization, all built on a scalable tech stack. The project is developed with both **Spring Boot** on the backend and **Angular/React** on the frontend. 
+The **E-Notes Project** is a comprehensive real-time note-taking and to-do management application. It offers robust features for user authentication, notes management, and task organization, all built on a scalable tech stack. The project is developed with both **Spring Boot** on the backend and **Angular/React** on the frontend.
 
 ---
 
@@ -68,6 +68,7 @@ The **E-Notes Project** is a comprehensive real-time note-taking and to-do manag
 The following are the necessary SQL scripts to set up the database for the **E-Notes** project:
 
 ### 1. **Users Table**
+```sql
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(100) NOT NULL,
@@ -76,16 +77,17 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     mobile_no VARCHAR(15)
 );
-
-### 2. **Role Table**
-
+```
+2. Role Table
+sql
+Copy code
 CREATE TABLE role (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL
 );
-```
-
-### 3. **User Role Table**
+3. User Role Table
+sql
+Copy code
 CREATE TABLE user_role (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -93,10 +95,9 @@ CREATE TABLE user_role (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE
 );
-```
-
-### 4. **Category Table**
-
+4. Category Table
+sql
+Copy code
 CREATE TABLE category (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -107,9 +108,9 @@ CREATE TABLE category (
     updated_by INT,
     updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
 );
-
-### 5. **Notes Table**
-
+5. Notes Table
+sql
+Copy code
 CREATE TABLE notes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(1000) NOT NULL,
@@ -120,10 +121,9 @@ CREATE TABLE notes (
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-
-
-### 6. **File Details Table**
-
+6. File Details Table
+sql
+Copy code
 CREATE TABLE file_details (
     id INT AUTO_INCREMENT PRIMARY KEY,
     original_file_name VARCHAR(255) NOT NULL,
@@ -133,8 +133,9 @@ CREATE TABLE file_details (
     file_size DOUBLE NOT NULL,
     file_type VARCHAR(100) NOT NULL
 );
-
-### 7. **Todo Table**
+7. Todo Table
+sql
+Copy code
 CREATE TABLE todo (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
@@ -144,44 +145,27 @@ CREATE TABLE todo (
     created_by INT,
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
----
-
-## Deployment and Source Control
-
+Deployment and Source Control
 The project is hosted on GitHub with multiple branches for development, testing, and production environments. You can clone or fork the project using the following repository URL:
 
-- **GitHub Repository**: [E-Notes API Service](https://github.com/shivaakira12/enotes-api-service.git)
-
+GitHub Repository: E-Notes API Service
 Branches include:
-- `dev` (Development)
-- `uat` (User Acceptance Testing)
-- `prod` (Production)
 
----
+dev (Development)
+uat (User Acceptance Testing)
+prod (Production)
+UI Design
+UI/UX design was created using Figma for wireframes and mockups.
 
-## UI Design
-UI/UX design was created using **Figma** for wireframes and mockups.
+Deployment
+The application is deployed on AWS, utilizing various AWS services for scalability and reliability.
 
----
+Frontend Customization
+Use the Aptos font family in your frontend for a clean and modern look. Example:
 
-## Deployment
-
-The application is deployed on **AWS**, utilizing various AWS services for scalability and reliability.
-
----
-
-## Frontend Customization
-
-Use the **Aptos** font family in your frontend for a clean and modern look. Example:
-
-
+css
+Copy code
 body {
     font-family: 'Aptos', sans-serif;
 }
-
-
----
-
 Thank you for using the E-Notes Project!
-
