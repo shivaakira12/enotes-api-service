@@ -68,7 +68,6 @@ The **E-Notes Project** is a comprehensive real-time note-taking and to-do manag
 The following are the necessary SQL scripts to set up the database for the **E-Notes** project:
 
 ### 1. **Users Table**
-```sql
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(100) NOT NULL,
@@ -77,10 +76,9 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     mobile_no VARCHAR(15)
 );
-```
 
 ### 2. **Role Table**
-```sql
+
 CREATE TABLE role (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL
@@ -88,7 +86,6 @@ CREATE TABLE role (
 ```
 
 ### 3. **User Role Table**
-```sql
 CREATE TABLE user_role (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -99,7 +96,7 @@ CREATE TABLE user_role (
 ```
 
 ### 4. **Category Table**
-```sql
+
 CREATE TABLE category (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -112,7 +109,7 @@ CREATE TABLE category (
 );
 
 ### 5. **Notes Table**
-```sql
+
 CREATE TABLE notes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(1000) NOT NULL,
@@ -123,10 +120,10 @@ CREATE TABLE notes (
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-```
+
 
 ### 6. **File Details Table**
-```sql
+
 CREATE TABLE file_details (
     id INT AUTO_INCREMENT PRIMARY KEY,
     original_file_name VARCHAR(255) NOT NULL,
@@ -138,7 +135,6 @@ CREATE TABLE file_details (
 );
 
 ### 7. **Todo Table**
-```sql
 CREATE TABLE todo (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
@@ -179,15 +175,13 @@ The application is deployed on **AWS**, utilizing various AWS services for scala
 
 Use the **Aptos** font family in your frontend for a clean and modern look. Example:
 
-```css
+
 body {
     font-family: 'Aptos', sans-serif;
 }
-```
+
 
 ---
 
 Thank you for using the E-Notes Project!
-```
 
-This README file incorporates the **Aptos** font family for use in the frontend, as requested. You can adapt this template to your project repository by saving it as a `README.md` file.
