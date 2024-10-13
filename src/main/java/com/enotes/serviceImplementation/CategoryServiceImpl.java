@@ -2,6 +2,7 @@ package com.enotes.serviceImplementation;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,14 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public Boolean saveCategory(CategoryDTO categoryDto) {
 		Category category = modelmapper.map(categoryDto, Category.class);
-		category.setCreatedOn(new Date());
-		category.setIsDeleted(false);
-		category.setCreatedBy(1);
+		if(ObjectUtils.isEmpty(category.getId())) {
+			category.setCreatedOn(new Date());
+			category.setIsDeleted(false);
+			category.setCreatedBy(1);
+		}
+		else {
+			updateCategory(category);
+		}
 		Category saveCategory = categoryRepository.save(category);
 		if (ObjectUtils.isEmpty(saveCategory)) {
 			return false;
@@ -37,20 +43,58 @@ public class CategoryServiceImpl implements CategoryService {
 		}
 	}
 
+	private void updateCategory(Category category) {
+		Optional<Category> findById = categoryRepository.findById(category.getId());
+		if(findById.isPresent()) {
+			Category existCategory = findById.get();
+			category.setCreatedBy(existCategory.getCreatedBy());
+			category.setCreatedOn(existCategory.getCreatedOn());
+			category.setIsDeleted(existCategory.getIsDeleted());
+			
+			category.setUpdatedBy(1);
+			category.setUpdatedOn(new Date());
+		}
+	}
+
 	@Override
 	public List<CategoryDTO> getAllCategory() {
-		List<Category> allCategories = categoryRepository.findAll();
-		
-		List<CategoryDTO> categoryDTOList = allCategories.stream().map(cat->modelmapper.map(cat, CategoryDTO.class)).toList();
-		
+		List<Category> allCategories = categoryRepository.findByIsDeletedFalse();
+
+		List<CategoryDTO> categoryDTOList = allCategories.stream().map(cat -> modelmapper.map(cat, CategoryDTO.class))
+				.toList();
+
 		return categoryDTOList;
 	}
 
 	@Override
 	public List<CategoryResponse> getActiveCategory() {
-		List<Category> activeCategories = categoryRepository.findByIsActiveTrue();
-		List<CategoryResponse> activeCategoryList = activeCategories.stream().map(cat->modelmapper.map(cat, CategoryResponse.class)).toList();
+		List<Category> activeCategories = categoryRepository.findByIsActiveTrueAndIsDeletedFalse();
+		List<CategoryResponse> activeCategoryList = activeCategories.stream()
+				.map(cat -> modelmapper.map(cat, CategoryResponse.class)).toList();
 		return activeCategoryList;
+	}
+
+	@Override
+	public CategoryDTO getCategoryById(Integer id) {
+		Optional<Category> findByIdCategory = categoryRepository.findByIdAndIsDeletedFalse(id);
+		if (findByIdCategory.isPresent()) {
+			Category category = findByIdCategory.get();
+			return modelmapper.map(category, CategoryDTO.class);
+		}
+		return null;
+	}
+
+	@Override
+	public Boolean deleteCategoryById(Integer id) {
+		Optional<Category> findByIdCategory = categoryRepository.findById(id);
+		if (findByIdCategory.isPresent()) {
+			Category category = findByIdCategory.get();
+			category.setIsDeleted(true);
+			categoryRepository.save(category);
+			return true;
+		}
+		return false;
+
 	}
 
 }
