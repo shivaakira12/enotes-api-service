@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.enotes.dto.CategoryDTO;
 import com.enotes.dto.CategoryResponse;
 import com.enotes.entity.Category;
+import com.enotes.exception.ResourceNotFoundException;
 import com.enotes.service.CategoryService;
 
 @RestController
@@ -71,19 +72,29 @@ public class CategoryController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getCategoryById(@PathVariable Integer id) {
-		CategoryDTO categoryDtoById = categoryService.getCategoryById(id);
-		if(ObjectUtils.isEmpty(categoryDtoById)) {
-			return new ResponseEntity<>("Category not found with id = "+id,HttpStatus.NOT_FOUND);
+
+		try {
+			CategoryDTO categoryDtoById = categoryService.getCategoryById(id);
+			if (ObjectUtils.isEmpty(categoryDtoById)) {
+				return new ResponseEntity<>("Category not found with id = " + id, HttpStatus.NOT_FOUND);
+			}
+			return new ResponseEntity<>(categoryDtoById, HttpStatus.OK);
+		} catch (ResourceNotFoundException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(categoryDtoById,HttpStatus.OK);
+
+		catch (Exception e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 	}
 
-	@DeleteMapping("/{id}")	
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteCategoryById(@PathVariable Integer id) {
 		Boolean deletedCategory = categoryService.deleteCategoryById(id);
-		if(deletedCategory) {
-			return new ResponseEntity<>("Category Deleted Successfully",HttpStatus.OK);
+		if (deletedCategory) {
+			return new ResponseEntity<>("Category Deleted Successfully", HttpStatus.OK);
 		}
-		return new ResponseEntity<>("Invalid Category ID = " +id,HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>("Invalid Category ID = " + id, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }
