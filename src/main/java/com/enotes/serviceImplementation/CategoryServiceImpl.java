@@ -20,6 +20,7 @@ import org.springframework.util.ObjectUtils;
 import com.enotes.dto.CategoryDTO;
 import com.enotes.dto.CategoryResponse;
 import com.enotes.entity.Category;
+import com.enotes.exception.ResourceNotFoundException;
 import com.enotes.repository.CategoryRepository;
 import com.enotes.service.CategoryService;
 
@@ -35,12 +36,11 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public Boolean saveCategory(CategoryDTO categoryDto) {
 		Category category = modelmapper.map(categoryDto, Category.class);
-		if(ObjectUtils.isEmpty(category.getId())) {
+		if (ObjectUtils.isEmpty(category.getId())) {
 			category.setCreatedOn(new Date());
 			category.setIsDeleted(false);
 			category.setCreatedBy(1);
-		}
-		else {
+		} else {
 			updateCategory(category);
 		}
 		Category saveCategory = categoryRepository.save(category);
@@ -53,12 +53,12 @@ public class CategoryServiceImpl implements CategoryService {
 
 	private void updateCategory(Category category) {
 		Optional<Category> findById = categoryRepository.findById(category.getId());
-		if(findById.isPresent()) {
+		if (findById.isPresent()) {
 			Category existCategory = findById.get();
 			category.setCreatedBy(existCategory.getCreatedBy());
 			category.setCreatedOn(existCategory.getCreatedOn());
 			category.setIsDeleted(existCategory.getIsDeleted());
-			
+
 			category.setUpdatedBy(1);
 			category.setUpdatedOn(new Date());
 		}
@@ -67,10 +67,8 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public List<CategoryDTO> getAllCategory() {
 		List<Category> allCategories = categoryRepository.findByIsDeletedFalse();
-
 		List<CategoryDTO> categoryDTOList = allCategories.stream().map(cat -> modelmapper.map(cat, CategoryDTO.class))
 				.toList();
-
 		return categoryDTOList;
 	}
 
@@ -83,11 +81,11 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public CategoryDTO getCategoryById(Integer id) {
-		Optional<Category> findByIdCategory = categoryRepository.findByIdAndIsDeletedFalse(id);
-		if (findByIdCategory.isPresent()) {
-			Category category = findByIdCategory.get();
-			return modelmapper.map(category, CategoryDTO.class);
+	public CategoryDTO getCategoryById(Integer id) throws Exception {
+		Category findByIdCategory = categoryRepository.findByIdAndIsDeletedFalse(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Category Not Found With this Id" + id));
+		if (!ObjectUtils.isEmpty(findByIdCategory)) {
+			return modelmapper.map(findByIdCategory, CategoryDTO.class);
 		}
 		return null;
 	}
