@@ -23,4 +23,6 @@ public interface CategoryService {
 	public CategoryDTO getCategoryById(Integer id) throws Exception;
 
 	public Boolean deleteCategoryById(Integer id);
+	
+	Boolean existsByName(String name);
 }
