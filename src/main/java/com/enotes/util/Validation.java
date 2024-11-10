@@ -23,11 +23,11 @@ public class Validation {
 			if (ObjectUtils.isEmpty(categoryDto.getName())) {
 				error.put("name", "name field is empty or null");
 			}
-			if (categoryDto.getName().length() < 10) {
-				error.put("name", "name field is min 10");
+			if (categoryDto.getName().length() < 3) {
+				error.put("name", "name field is min 3");
 			}
 			if (categoryDto.getName().length() > 100) {
-				error.put("name", "name field is max 10");
+				error.put("name", "name field is max 100");
 			}
 			// Validation for Category description
 			if (ObjectUtils.isEmpty(categoryDto.getDescription())) {

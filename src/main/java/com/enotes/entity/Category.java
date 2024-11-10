@@ -11,12 +11,16 @@ package com.enotes.entity;
 
 import java.util.Date;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Category extends BaseModel {
 
 	@Id
@@ -24,6 +28,18 @@ public class Category extends BaseModel {
 	private Integer id;
 	private String name;
 	private String description;
+	private Boolean isActive;
+	private Boolean isDeleted;
+
+	public Category(Boolean isActive, Boolean isDeleted, Integer createdBy, Date createdOn, Integer updatedBy,
+			Date updatedOn, Integer id, String name, String description, Boolean isActive2, Boolean isDeleted2) {
+		super(isActive, isDeleted, createdBy, createdOn, updatedBy, updatedOn);
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		isActive = isActive2;
+		isDeleted = isDeleted2;
+	}
 
 	public Category() {
 		super();
@@ -32,6 +48,22 @@ public class Category extends BaseModel {
 	public Category(Boolean isActive, Boolean isDeleted, Integer createdBy, Date createdOn, Integer updatedBy,
 			Date updatedOn) {
 		super(isActive, isDeleted, createdBy, createdOn, updatedBy, updatedOn);
+	}
+
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public Boolean getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(Boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 	public Integer getId() {
