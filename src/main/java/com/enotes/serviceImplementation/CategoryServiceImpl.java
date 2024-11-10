@@ -111,4 +111,10 @@ public class CategoryServiceImpl implements CategoryService {
 
 	}
 
+	@Override
+	public Boolean existsByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
